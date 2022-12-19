@@ -6,6 +6,7 @@ class Watch extends React.Component {
 
     static propTypes = {
         offset: PropTypes.string,
+        id: PropTypes.number,
         name: PropTypes.string,
         onDelete: PropTypes.func
     };
@@ -32,7 +33,7 @@ class Watch extends React.Component {
             <div className={this.props.name}>
                 <h4>{this.props.name}</h4>
                 <div>{time.toLocaleTimeString()}</div>
-                <button type="submit" onClick={this.props.onDelete}>Удалить</button>
+                <button type="submit" onClick={() => this.props.onDelete(this.props.id)}>Удалить</button>
             </div>
         );
     };

@@ -4,27 +4,29 @@ import CityInput from './components/CityInput.js';
 import Watches from './components/Watches.js';
 import PropTypes from 'prop-types';
 
+let id = 0;
+
 function App() {
 
   const [data, setData] = useState({});
 
     const [watches, setWatches] = useState([]);
-    
+
     const handleChange = (e) => {
         const {name, value} = e.target;
-        setData(prevData => ({...prevData, [name]: value}));
+        
+        setData(prevData => ({...prevData, [name]: value, id: id}));
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setWatches(prevWatches => ([...prevWatches, data]));
+        id++;
         e.target.reset();
       };
 
-    const handleDelete = e => {
-      e.preventDefault();
-      const itemToDelete = e.target.closest("div").className;
-      setWatches(watches.filter(prevWatch => prevWatch.city !== itemToDelete));
+    const handleDelete = itemId => {
+      setWatches(watches.filter(prevWatch => prevWatch.id !== itemId));
     };
 
   return (
@@ -34,7 +36,7 @@ function App() {
         addWatch={e => handleSubmit(e)} />
       <Watches
         data={watches}  
-        onDelete={e => handleDelete(e)} />
+        onDelete={id => handleDelete(id)} />
     </div>
   );
 };
